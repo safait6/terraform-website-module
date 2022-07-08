@@ -25,7 +25,7 @@ resource "aws_security_group_rule" "https_access" {
   from_port         = 443
   to_port           = 443
   protocol          = "tcp"
-  cidr_blocks       = var.ingress_cidr_blocks
+  cidr_blocks       = concat(var.ingress_cidr_blocks, [module.vpc.vpc_cidr_block])
   security_group_id = aws_security_group.this.id
 }
 
@@ -35,7 +35,7 @@ resource "aws_security_group_rule" "http_access" {
   from_port         = 80
   to_port           = 80
   protocol          = "tcp"
-  cidr_blocks       = var.ingress_cidr_blocks
+  cidr_blocks       = concat(var.ingress_cidr_blocks, [module.vpc.vpc_cidr_block])
   security_group_id = aws_security_group.this.id
 }
 
